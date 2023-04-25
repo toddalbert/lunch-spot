@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import RestaurantList from './components/RestaurantList';
 
@@ -6,7 +5,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <RestaurantList />
-      <StatusBar style="auto" />
     </View>
   );
 }
