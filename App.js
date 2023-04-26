@@ -1,19 +1,25 @@
-import { StyleSheet, View } from 'react-native';
-import RestaurantList from './components/RestaurantList';
+import { useState, createContext } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import RestaurantList from './components/RestaurantList'
+import RestaurantDetails from './components/RestaurantDetails'
+
+const Stack = createNativeStackNavigator()
+
+export const RestaurantContext = createContext()
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <RestaurantList />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'skyblue',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  const [selectedRestaurant, setSelectedRestaurant] = useState()
+
+  return (
+    <NavigationContainer>
+      <RestaurantContext.Provider value={{ selectedRestaurant, setSelectedRestaurant }}>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" options={{ title: 'Restaurant List' }} component={RestaurantList} />
+          <Stack.Screen name="Details" component={RestaurantDetails} />
+        </Stack.Navigator>
+      </RestaurantContext.Provider>
+    </NavigationContainer>
+  )
+}

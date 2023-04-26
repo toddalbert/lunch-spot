@@ -1,11 +1,23 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { useContext } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { RestaurantContext } from '../App';
 
-export default function RestaurantCard({ food }) {
+export default function RestaurantCard({ food, navigation }) {
+
+  const { setSelectedRestaurant } = useContext(RestaurantContext);
+
+  const chooseRestaurant = () => {
+    setSelectedRestaurant(food)
+    navigation.navigate('Details')
+  }
+
   return (
-    <View style={styles.card}>
-      <Text style={styles.main}>{food.name}</Text>
-      <Image style={styles.img} source={{ uri: food.image }} />
-    </View>
+    <TouchableOpacity onPress={chooseRestaurant}>
+      <View style={styles.card}>
+        <Text style={styles.main}>{food.name}</Text>
+        <Image style={styles.img} source={{ uri: food.image }} />
+      </View>
+    </TouchableOpacity>
   )
 }
 
